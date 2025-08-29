@@ -4,14 +4,14 @@ import Pages.P01_HomePage;
 import Utilities.LogsUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.time.Duration;
 
-import static DriverFactory.DriverFactory.getDriver;
-import static DriverFactory.DriverFactory.setupDriver;
+import static DriverFactory.DriverFactory.*;
 import static Utilities.DataUtils.getPropertyValue;
 
 public class Tc01_HomePage {
@@ -42,11 +42,23 @@ public class Tc01_HomePage {
         Assert.assertTrue(title.contains("InMotion Hosting"),
                 " Page title does not contain 'InMotion Hosting'. Actual title: " + title);
     }
-@Test
+
+    @Test
     public void verifyWebHostingVisible() {
         homePage.scrollToWebHosting();
         Assert.assertTrue(homePage.isDomainsDisplayed(),
                 "Domains menu is not displayed");
     }
+
+    @Test
+    public void verifyDomainNameSearchNavigation() {
+        homePage.Domains();           // Hover on Domains
+
+    }
+    @AfterMethod(alwaysRun = true)
+    public void quit() {
+        quitDriver();
+    }
 }
+
 
